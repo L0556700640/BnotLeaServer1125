@@ -1,0 +1,52 @@
+{
+  "students": [
+    {
+      "id": "123456789",
+      "firstName": "שרה",
+      "lastName": "כהן",
+      "grade": "ט",
+      "class": "א",
+      "totalPoints": 10,
+      "lastFillDate": "2025-11-04T12:46:21.070Z",
+      "pointsByCategory": {
+        "collar": 0,
+        "hair": 5,
+        "makeup": 0,
+        "shoes": 0,
+        "sweater": 5
+      }
+    },
+    {
+      "id": "987654321",
+      "firstName": "מרים",
+      "lastName": "לוי",
+      "grade": "ט",
+      "class": "ב",
+      "totalPoints": 0,
+      "lastFillDate": null,
+      "pointsByCategory": {
+        "collar": 0,
+        "hair": 0,
+        "makeup": 0,
+        "shoes": 0,
+        "sweater": 0
+      }
+    },
+    {
+      "id": "111111111",
+      "firstName": "wefwf",
+      "lastName": "לוי",
+      "grade": "ט",
+      "class": "ב",
+      "totalPoints": 30,
+      "lastFillDate": "2025-11-04T12:43:46.990Z",
+      "pointsByCategory": {
+        "collar": 0,
+        "hair": 10,
+        "makeup": 5,
+        "shoes": 5,
+        "sweater": 10
+      }
+    }
+  ]
+}
