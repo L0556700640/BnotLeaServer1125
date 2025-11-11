@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
+import XLSX from "xlsx";
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -171,6 +173,50 @@ app.get('/api/admin/all-students', async (req, res) => {
   }
 });
 
+
+app.get('/api/admin/all-students/excel', async (req, res) => {
+  try {
+    const data = await readData();
+
+    if (!data.students || data.students.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "לא נמצאו תלמידים במערכת",
+      });
+    }
+
+    // יצירת גליון Excel מהנתונים
+    const worksheet = XLSX.utils.json_to_sheet(data.students);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+
+    // המרה לקובץ בינארי בזיכרון בלבד
+    const buffer = XLSX.write(workbook, {
+      type: "buffer",
+      bookType: "xlsx"
+    });
+
+    // שליחה אוטומטית להורדה
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=students.xlsx"
+    );
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.send(buffer);
+  } catch (error) {
+    console.error("Error generating Excel:", error);
+    res.status(500).json({
+      success: false,
+      message: "שגיאה ביצירת הקובץ",
+    });
+  }
+});
+
+
 // API: הוספת תלמידה חדשה (למנהלים)
 app.post('/api/admin/add-student', async (req, res) => {
   try {
@@ -192,7 +238,7 @@ app.post('/api/admin/add-student', async (req, res) => {
         message: 'תלמידה כבר קיימת במערכת' 
       });
     }
-    
+
     // יצירת תלמידה חדשה
     const newStudent = {
       id,
