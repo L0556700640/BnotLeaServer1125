@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
-import XLSX from "xlsx";
+const XLSX = require("xlsx");
 
 
 const app = express();
